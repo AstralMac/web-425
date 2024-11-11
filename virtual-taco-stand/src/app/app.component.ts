@@ -50,7 +50,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       }
 
       .sign-in-link{
-        color: #000000
+        color: #000000;
         text-decoration: none;
         font-family: 'Lato', sans-serif;
       }

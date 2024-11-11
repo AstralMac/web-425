@@ -9,6 +9,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   <div class ="wrapper">
     <header class = "banner">
       <img src="/assets/RPGCharacterBanner.png" alt = "website banner for RPG Builder application" class ="banner-img">
+      <h1>Hello, rpg-character-builder</h1>
     </header>
     
     <main class = "main-content">

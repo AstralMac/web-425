@@ -20,4 +20,10 @@ describe('MenuComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should correctly display a list of tacos', ()=>{
+    const compiled = fixture.nativeElement as HTMLElement; // Get the compiled HTML of the component
+    const menuItems = compiled.querySelectorAll('.menu-item'); // Get all the menu items
+    expect(menuItems.length).toEqual(component.menu.length); // Check if the number of menu items is equal to the number of items in the menu array
+  });
 });
