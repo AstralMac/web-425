@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
   <fieldset>
     <legend>My Order</legend>
     <label for="tacoType">Taco Type</label>
-    <select name ="taoType" id="tacoType" [(ngModel)]="selectedTacoId" ngModel>
+    <select name ="tacoType" id="tacoType" [(ngModel)]="selectedTacoId" ngModel>
       @for (taco of tacos; track taco){
         <option value = "{{taco.id}}">{{taco.name}}</option>
       }
@@ -105,7 +105,7 @@ import { CommonModule } from '@angular/common';
       margin-bottom: 5px
     }
 
-    .qty-input, select, input[type ="submit]{
+    .qty-input, select, input[type ="submit"]{
       padding: 8px;
       box-sizing: border-box;
     }
@@ -148,8 +148,8 @@ export class OrderComponent {
   order:Order;
   selectedTacoId: number;
   quantity: number;
-  NoOnions: boolean = false;
-  NoCilantro:boolean = false;
+  noOnions: boolean = false;
+  noCilantro:boolean = false;
   orderTotal: number;
 
   constructor(){
@@ -170,5 +170,44 @@ export class OrderComponent {
     this.selectedTacoId=this.tacos[0].id;
     this.quantity=1;
     this.orderTotal=0;
+  }
+
+  addToOrder(){
+    const selectedTacoNum = Number(this.selectedTacoId);
+    const selectedTaco = this.tacos.find(taco => taco.id === selectedTacoNum);
+
+    // random number between 1 and 1000 for order Id no decimal places
+    this.order.orderId = Math.floor(Math.random() * 1000)+1;
+
+    if(selectedTaco !== undefined){
+      const tacoToAdd ={
+        id: selectedTaco.id,
+        name: selectedTaco.name,
+        price: selectedTaco.price,
+        noOnions: this.noOnions,
+        noCilantro: this.noCilantro,
+        quantity: this.quantity
+      }
+
+      this.order.tacos.push(tacoToAdd);
+      console.log('Order after adding:', this.order);
+
+      this.resetForm();
+    }else{
+      console.error('Taco not found in the list of available tacos.', this.selectedTacoId)
+    }
+  }
+
+  getTotal(){
+    return this.order.tacos.reduce((acc, taco)=> acc +(taco.price *(taco.quantity??1)), 0);
+  }
+
+  resetForm(){
+    if(this.tacos.length > 0){
+      this.selectedTacoId= this.tacos[0].id;
+    }
+    this.quantity =1;
+    this.noOnions=false;
+    this.noCilantro= false;
   }
 }
