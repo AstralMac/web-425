@@ -46,9 +46,9 @@ import { CommonModule } from '@angular/common';
         <h2>Character List</h2>
         <ul *ngIf= "characters.length >0; else noCharacters">
           <li *ngFor="let character of characters">
-              <strong>ID:</strong>{{character.id}} |
-              <strong>Name:</strong>{{character.name}} |
-              <strong>Gender:</strong>{{character.gender}} |
+              <strong>ID:</strong>{{character.characterId}} |
+              <strong>Name:</strong>{{character.characterName}} |
+              <strong>Gender:</strong>{{character.characterGender}} |
               <strong>Class:</strong>{{character.characterClass}} 
             </li>
         </ul>
