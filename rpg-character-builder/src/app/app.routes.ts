@@ -6,6 +6,8 @@ import { CreateCharacterComponent } from './create-character/create-character.co
 import { CreateGuildComponent } from './create-guild/create-guild.component';
 import { CharacterFactionComponent } from './character-faction/character-faction.component';
 import { authGuard } from './auth.guard';
+import { CharacterListComponent } from './character-list/character-list.component';
+import { GuildListComponent } from './guild-list/guild-list.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +38,14 @@ export const routes: Routes = [
   {
     path:'character-faction',
     component: CharacterFactionComponent
+  },
+  {
+    path: 'character-list',
+    component: CharacterListComponent
+  },
+  {
+    path: 'guild-list',
+    component: GuildListComponent
   },
   {
     path: 'signin',

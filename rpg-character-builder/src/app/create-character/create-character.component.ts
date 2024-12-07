@@ -5,14 +5,15 @@ export interface Character{
   characterClass: string;
 }
 
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule, NgForm} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CharacterListComponent } from '../character-list/character-list.component';
 
 @Component({
   selector: 'app-create-character',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, CharacterListComponent],
   template: `
     <div class="create-character-container">
       <form class="create-character-form" #characterForm="ngForm" (ngSubmit)="addCharacter()">
@@ -43,18 +44,7 @@ import { CommonModule } from '@angular/common';
       </form>
 
       <div class="character-list">
-        <h2>Character List</h2>
-        <ul *ngIf= "characters.length >0; else noCharacters">
-          <li *ngFor="let character of characters">
-              <strong>ID:</strong>{{character.characterId}} |
-              <strong>Name:</strong>{{character.characterName}} |
-              <strong>Gender:</strong>{{character.characterGender}} |
-              <strong>Class:</strong>{{character.characterClass}} 
-            </li>
-        </ul>
-        <ng-template #noCharacters>
-          <p>No Characters Created Yet</p>
-        </ng-template>
+        <app-character-list [characters]="characters"></app-character-list>
       </div>
     </div>
   `,
@@ -63,7 +53,7 @@ import { CommonModule } from '@angular/common';
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 10px;
     }
 
     .create-character-form{
@@ -101,6 +91,7 @@ export class CreateCharacterComponent {
     characterGender:'',
     characterClass:''
   };
+  @Output() characterCreated = new EventEmitter<Character []>();
 
   addCharacter():void{
     //generate a random ID for the character
@@ -111,6 +102,8 @@ export class CreateCharacterComponent {
 
     //reset the form
     this.resetForm();
+
+    this.characterCreated.emit(this.characters);
   }
 
   resetForm(): void{

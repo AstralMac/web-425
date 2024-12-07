@@ -32,6 +32,8 @@ import { AuthService } from './auth.service';
           <li><a routerLink="/create-character">Create Character</a></li>
           <li><a routerLink="/create-guild">Create Guild</a></li>
           <li><a routerLink="/character-faction">Character Faction</a></li>
+          <li><a routerLink="/character-list">Character List</a></li>
+          <li><a routerLink="/guild-list">Guild List</a></li>
         </ul>
       </nav>
 
