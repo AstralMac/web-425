@@ -125,9 +125,6 @@ export interface Guild{
   `
 })
 export class CreateGuildComponent {
-  type: string[] =['Competitive', 'Casual', 'Social', 'Educational'];
-  notificationPreference: string[]=['Email', 'SMS','In-App'];
-
   guilds: Guild[]=[];
   newGuild: Guild ={
     guildName: '',
@@ -137,6 +134,7 @@ export class CreateGuildComponent {
 
   @Output() guildCreated = new EventEmitter<Guild[]>();
 
+  //All fields required
   guildForm: FormGroup = this.fb.group({
     guildName:[null, Validators.compose([Validators.required])],
     description: [null, Validators.compose([Validators.required])],
@@ -149,8 +147,9 @@ export class CreateGuildComponent {
 
   onSubmit():void{
     if(this.guildForm.valid){
-      const guild = this.guildForm.value;
-      this.guilds.push({...this.newGuild});
+      // Construct a new guild object from the form values
+      const newGuild: Guild = this.guildForm.value;
+      this.guilds.push(newGuild); //PUSH THE newGuild OBJECT!!!
       this.guildCreated.emit(this.guilds);
       this.guildForm.reset();
       alert('Guild created successfully!');
